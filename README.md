@@ -1,73 +1,135 @@
-# Welcome to your Lovable project
+# 🚍 Yatra - Live Bus Tracking App
 
-## Project info
+> **Rapido-style bus tracking for passengers**
 
-**URL**: https://lovable.dev/projects/7e830560-bd9a-44d5-b35e-65a6e339c5e0
+## 🌟 Overview
 
-## How can I edit this code?
+Yatra is a simple, real-time bus tracking app designed with a modern, Rapido-inspired UI for passengers to track buses and get live ETAs.
 
-There are several ways of editing your application.
+## 🔄 How It Works
 
-**Use Lovable**
+1. **Mock Data** simulates live bus locations
+2. **Frontend** displays buses on interactive map
+3. **ETA Calculation** shows arrival times
+4. **Real-time Updates** refresh every 10 seconds
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7e830560-bd9a-44d5-b35e-65a6e339c5e0) and start prompting.
+## 🎯 Core Features
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🚌 Passenger App (Prototype)
+- **Live bus tracking** on interactive map
+- **ETA countdown** ("Bus arriving in 5 min")
+- **Nearest stop suggestion** via GPS
+- **Simple route search** by bus number
 
-**Use your preferred IDE**
+## 🛠️ Technology Stack
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Frontend
+- **React.js** with TypeScript
+- **Vite** for fast development
+- **shadcn-ui** component library
+- **Tailwind CSS** for styling
+- **React Router** for navigation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Backend (Mock)
+- **JSON files** for mock data
+- **Local storage** for prototype
+- **Simulated APIs** for testing
 
-Follow these steps:
+### Maps & Location
+- **Google Maps API** / OpenStreetMap integration
+- **Real-time GPS tracking**
+- **Geolocation services**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
+### Deployment
+- **Docker** containerization
+- **AWS/GCP/Azure** cloud deployment
+- **Nginx** reverse proxy
+- **Firebase Cloud Messaging** for notifications
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ and npm
+
+### Installation
+
+```bash
+# Clone the repository
 git clone <YOUR_GIT_URL>
+cd smartcommute
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Install frontend dependencies
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Start development server
+npm run dev          # Frontend (port 5173)
 ```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+## 🏢 Module Structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── components/        # Map, ETA, Search components
+├── pages/            # Main tracking pages
+├── services/         # Mock API calls
+├── utils/           # Helper functions
+└── types/           # TypeScript types
+```
 
-## What technologies are used for this project?
+## 📱 Access
 
-This project is built with:
+- **Live Map**: `/` - Main bus tracking interface
+- **Route Search**: `/search` - Find buses by number
+- **Nearby Stops**: `/stops` - Find nearest stops
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/7e830560-bd9a-44d5-b35e-65a6e339c5e0) and click on Share -> Publish.
+## 🔧 Mock APIs
 
-## Can I connect a custom domain to my Lovable project?
+- Mock bus locations with simulated movement
+- Static bus stops data
+- Calculated ETAs based on distance
 
-Yes, you can!
+## 🎨 Design
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Minimal**: Clean gray/white theme
+- **Mobile-first**: Rapido-style interface
+- **Live updates**: Real-time bus positions
+- **ETA display**: Countdown timers
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+
+
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- **Documentation**: [Wiki](https://github.com/your-repo/wiki)
+- **Issues**: [GitHub Issues](https://github.com/your-repo/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-repo/discussions)
+
+
+
+---
+
+**Built with ❤️ for smarter, greener urban transportation**

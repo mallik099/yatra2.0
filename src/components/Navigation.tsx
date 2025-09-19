@@ -1,36 +1,43 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Bus, Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/features", label: "Features" },
-    { href: "/impact", label: "Impact" },
-    { href: "/how-it-works", label: "How It Works" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: t('home') },
+    { href: "/passenger", label: "Passenger" },
+    { href: "/driver", label: "Driver" },
+    { href: "/admin", label: "Admin" },
+    { href: "/features", label: t('features') },
+    { href: "/impact", label: t('impact') },
+    { href: "/how-it-works", label: t('howItWorks') },
+    { href: "/contact", label: t('contact') },
   ];
 
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border" role="navigation" aria-label="Main navigation">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 transition-smooth hover:opacity-80">
+          <Link to="/" className="flex items-center space-x-2 transition-smooth hover:opacity-80" aria-label="Yatra home page">
             <Bus className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold gradient-primary bg-clip-text text-transparent">
-              SmartCommute
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 bg-clip-text text-transparent hover:from-orange-500 hover:via-purple-600 hover:to-blue-600 transition-all duration-500">
+              Yatra
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8" role="menubar">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -38,13 +45,13 @@ const Navigation = () => {
                 className={`text-sm font-medium transition-smooth hover:text-primary ${
                   isActive(link.href) ? "text-primary" : "text-muted-foreground"
                 }`}
+                role="menuitem"
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>
             ))}
-            <Button variant="default" className="gradient-primary">
-              Get Started
-            </Button>
+            <LanguageSelector />
           </div>
 
           {/* Mobile menu button */}
@@ -76,9 +83,9 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <Button variant="default" className="gradient-primary w-full mt-4">
-                Get Started
-              </Button>
+              <div className="pt-2 border-t border-border">
+                <LanguageSelector />
+              </div>
             </div>
           </div>
         )}

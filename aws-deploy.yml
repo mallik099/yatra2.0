@@ -1,0 +1,68 @@
+# AWS ECS Task Definition for Yatra
+version: '3'
+services:
+  yatra-app:
+    image: your-account.dkr.ecr.region.amazonaws.com/yatra:latest
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=${MONGODB_URI}
+      - REDIS_URL=${REDIS_URL}
+      - AWS_REGION=${AWS_REGION}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: /ecs/yatra
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: ecs
+
+# CloudFormation template for infrastructure
+Resources:
+  # VPC and Networking
+  YatraVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+
+  # ECS Cluster
+  YatraCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: yatra-cluster
+
+  # Application Load Balancer
+  YatraALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: yatra-alb
+      Scheme: internet-facing
+      Type: application
+      Subnets:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+
+  # RDS for PostgreSQL
+  YatraDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceIdentifier: yatra-db
+      DBInstanceClass: db.t3.micro
+      Engine: postgres
+      MasterUsername: yatrauser
+      MasterUserPassword: !Ref DBPassword
+      AllocatedStorage: 20
+      VPCSecurityGroups:
+        - !Ref DatabaseSecurityGroup
+
+  # ElastiCache for Redis
+  YatraCache:
+    Type: AWS::ElastiCache::CacheCluster
+    Properties:
+      CacheNodeType: cache.t3.micro
+      Engine: redis
+      NumCacheNodes: 1
+      VpcSecurityGroupIds:
+        - !Ref CacheSecurityGroup

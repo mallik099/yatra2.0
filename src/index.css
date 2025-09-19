@@ -2,134 +2,121 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SmartCommute Design System - Transportation theme with blue & green colors */
+/* Accessibility Styles */
+.high-contrast {
+  filter: contrast(150%) brightness(1.2);
+}
+
+.font-size-large {
+  font-size: 1.125rem;
+}
+
+.font-size-xl {
+  font-size: 1.25rem;
+}
+
+/* Focus indicators */
+*:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
 
 @layer base {
   :root {
-    --background: 248 250 252;
-    --foreground: 215 25% 27%;
+    --background: 255 255 255;
+    --foreground: 15 23% 15%;
 
     --card: 255 255 255;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 15 23% 15%;
 
     --popover: 255 255 255;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 15 23% 15%;
 
-    /* Primary blue - Trust & reliability */
-    --primary: 221 83% 53%;
+    /* Transportation blue - Trust & reliability */
+    --primary: 217 91% 55%;
     --primary-foreground: 255 255 255;
-    --primary-light: 221 83% 65%;
-    --primary-dark: 221 83% 41%;
 
-    /* Secondary green - Sustainability */
-    --secondary: 158 64% 52%;
+    /* Route green - Movement & progress */
+    --secondary: 142 71% 45%;
     --secondary-foreground: 255 255 255;
-    --secondary-light: 158 64% 65%;
-    --secondary-dark: 158 64% 40%;
 
-    --muted: 220 13% 91%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 217 20% 96%;
+    --muted-foreground: 217 10% 46%;
 
-    --accent: 221 83% 96%;
-    --accent-foreground: 221 83% 53%;
+    --accent: 217 20% 96%;
+    --accent-foreground: 217 91% 55%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 255 255 255;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 221 83% 53%;
+    --border: 217 15% 88%;
+    --input: 217 20% 96%;
+    --ring: 217 91% 55%;
 
-    /* Custom transport theme colors */
-    --transport-bg: 221 83% 98%;
-    --transport-card: 255 255 255;
-    --success: 158 64% 52%;
-    --warning: 45 93% 58%;
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
+    --bus-orange: 25 95% 53%;
+    --route-purple: 262 83% 58%;
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 41%));
-    --gradient-secondary: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 40%));
-    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53%), hsl(158 64% 52%));
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 55%), hsl(217 91% 45%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 71% 45%), hsl(142 71% 35%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 55%) 0%, hsl(142 71% 45%) 100%);
+    --gradient-transport: linear-gradient(135deg, hsl(217 91% 98%) 0%, hsl(142 71% 98%) 100%);
     
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(221 83% 53% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(221 83% 53% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(221 83% 53% / 0.1);
-    --shadow-glow: 0 0 20px hsl(221 83% 53% / 0.15);
+    --shadow-sm: 0 1px 3px 0 hsl(217 91% 55% / 0.08);
+    --shadow-md: 0 4px 12px -2px hsl(217 91% 55% / 0.12);
+    --shadow-lg: 0 8px 25px -5px hsl(217 91% 55% / 0.15);
+    --shadow-glow: 0 0 0 1px hsl(217 91% 55% / 0.15), 0 8px 20px hsl(217 91% 55% / 0.15);
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 215 25% 8%;
+    --background: 15 23% 8%;
     --foreground: 220 13% 91%;
 
-    --card: 215 25% 12%;
+    --card: 15 23% 12%;
     --card-foreground: 220 13% 91%;
 
-    --popover: 215 25% 12%;
+    --popover: 15 23% 12%;
     --popover-foreground: 220 13% 91%;
 
-    --primary: 221 83% 53%;
-    --primary-foreground: 255 255 255;
-    --primary-light: 221 83% 65%;
-    --primary-dark: 221 83% 41%;
+    --primary: 217 91% 65%;
+    --primary-foreground: 15 23% 8%;
 
-    --secondary: 158 64% 52%;
-    --secondary-foreground: 255 255 255;
-    --secondary-light: 158 64% 65%;
-    --secondary-dark: 158 64% 40%;
+    --secondary: 174 60% 60%;
+    --secondary-foreground: 15 23% 8%;
 
-    --muted: 215 25% 16%;
-    --muted-foreground: 215 16% 57%;
+    --muted: 15 23% 16%;
+    --muted-foreground: 220 8% 65%;
 
-    --accent: 215 25% 16%;
+    --accent: 15 23% 16%;
     --accent-foreground: 220 13% 91%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 255 255 255;
+    --border: 15 23% 18%;
+    --input: 15 23% 16%;
+    --ring: 217 91% 65%;
 
-    --border: 215 25% 16%;
-    --input: 215 25% 16%;
-    --ring: 221 83% 53%;
-
-    --transport-bg: 215 25% 10%;
-    --transport-card: 215 25% 12%;
-    --success: 158 64% 52%;
-    --warning: 45 93% 58%;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(221 83% 41%));
-    --gradient-secondary: linear-gradient(135deg, hsl(158 64% 52%), hsl(158 64% 40%));
-    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53%), hsl(158 64% 52%));
-    
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.2);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.4);
-    --shadow-glow: 0 0 20px hsl(221 83% 53% / 0.3);
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 0 1px hsl(217 91% 65% / 0.2), 0 4px 16px hsl(217 91% 65% / 0.2);
   }
 }
 
@@ -140,6 +127,9 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #f0fdf4 50%, #ecfdf5 75%, #f8fafc 100%);
+    background-attachment: fixed;
   }
 
   html {
@@ -165,6 +155,46 @@
   }
 
   .transition-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease;
+  }
+
+  .transport-card {
+    background: white;
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-sm);
+    border-radius: 12px;
+  }
+
+  .transport-card:hover {
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .transport-bg {
+    background: var(--gradient-transport);
+  }
+
+  .bus-icon {
+    background: linear-gradient(135deg, hsl(var(--bus-orange)), hsl(var(--bus-orange) / 0.8));
+  }
+
+  .route-accent {
+    background: linear-gradient(135deg, hsl(var(--route-purple)), hsl(var(--route-purple) / 0.8));
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 }

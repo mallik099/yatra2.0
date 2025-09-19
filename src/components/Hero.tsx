@@ -1,78 +1,63 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Clock, MapPin, Users, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
-    <section className="relative py-20 sm:py-28 lg:py-32 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 gradient-hero opacity-10"></div>
+    <section className="py-20 relative overflow-hidden bg-white/80 backdrop-blur-sm" role="banner" aria-labelledby="hero-title">
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-50/30 to-transparent"></div>
       
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Problem Statement */}
-          <div className="mb-8">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-destructive/10 text-destructive border border-destructive/20 mb-4">
-              Problem in Small Cities
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Tired of{" "}
-              <span className="gradient-primary bg-clip-text text-transparent">
-                Unreliable Bus Schedules?
-              </span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Small cities and tier-2 towns struggle with unpredictable public transport. 
-              No real-time tracking means wasted time, overcrowding, and frustrated commuters.
-            </p>
+          <div className="flex items-center justify-center mb-6">
+            <span className="text-4xl mr-4 hover:scale-110 transition-transform duration-300">🚌</span>
+            <div className="text-2xl animate-pulse">🔄</div>
+            <span className="text-4xl ml-4 hover:scale-110 transition-transform duration-300">📱</span>
           </div>
-
-          {/* Problem Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Card className="p-6 text-center border-destructive/20 bg-destructive/5">
-              <Clock className="h-12 w-12 text-destructive mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">Wasted Time</h3>
-              <p className="text-sm text-muted-foreground">
-                Hours spent waiting with no arrival information
-              </p>
-            </Card>
-            <Card className="p-6 text-center border-destructive/20 bg-destructive/5">
-              <Users className="h-12 w-12 text-destructive mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">Overcrowding</h3>
-              <p className="text-sm text-muted-foreground">
-                Unpredictable schedules lead to passenger bunching
-              </p>
-            </Card>
-            <Card className="p-6 text-center border-destructive/20 bg-destructive/5">
-              <MapPin className="h-12 w-12 text-destructive mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">No Tracking</h3>
-              <p className="text-sm text-muted-foreground">
-                Zero visibility into bus locations and delays
-              </p>
-            </Card>
+          
+          <h1 id="hero-title" className="text-5xl font-bold mb-6 text-slate-800">
+            {t('heroTitle')}
+          </h1>
+          <p id="hero-subtitle" className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto font-medium">
+            {t('heroSubtitle')}
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8" role="group" aria-label="Action buttons">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-slate-800 to-slate-700 hover:from-slate-900 hover:to-slate-800 shadow-xl hover:shadow-2xl hover:scale-105 px-8 py-3 rounded-full transition-all duration-500"
+              onClick={() => navigate('/features')}
+              aria-describedby="hero-subtitle"
+            >
+              {t('startYatra')}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="px-8 py-3 rounded-full border-slate-300 text-slate-700 hover:bg-slate-50 hover:border-orange-300 transition-all duration-300"
+              onClick={() => navigate('/features')}
+            >
+              {t('learnMore')}
+            </Button>
           </div>
-
-          {/* Solution */}
-          <div className="text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-              Meet{" "}
-              <span className="gradient-primary bg-clip-text text-transparent">
-                SmartCommute
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Real-time bus tracking and smart notifications that transform 
-              public transport in smaller cities. Know exactly when your bus arrives.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gradient-primary shadow-glow">
-                Try SmartCommute
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg">
-                Learn How It Works
-              </Button>
+          
+          <div className="flex items-center justify-center space-x-8 text-sm text-slate-600" role="list" aria-label="Key features">
+            <div className="flex items-center">
+              <div className="w-2 h-2 rounded-full bg-slate-800 mr-2"></div>
+              {t('liveTracking')}
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 rounded-full bg-orange-600 mr-2"></div>
+              {t('routePlanning')}
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 rounded-full bg-green-600 mr-2"></div>
+              {t('ecoFriendly')}
             </div>
           </div>
         </div>
