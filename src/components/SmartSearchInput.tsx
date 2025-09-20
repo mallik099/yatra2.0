@@ -96,7 +96,9 @@ const SmartSearchInput: React.FC<SmartSearchInputProps> = ({
   return (
     <div className="relative">
       <div className="relative">
-        <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10">
+          <MapPin className="w-5 h-5 text-gray-500" />
+        </div>
         <input
           ref={inputRef}
           type="text"
@@ -105,7 +107,7 @@ const SmartSearchInput: React.FC<SmartSearchInputProps> = ({
           onFocus={() => setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           placeholder={placeholder}
-          className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="smart-input w-full"
         />
         
         {type === 'source' && (
@@ -113,36 +115,38 @@ const SmartSearchInput: React.FC<SmartSearchInputProps> = ({
             type="button"
             onClick={handleLocationDetect}
             disabled={isDetectingLocation}
-            className="absolute right-2 top-2 p-1 text-blue-600 hover:bg-blue-50 rounded-md disabled:opacity-50"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 text-purple-600 hover:bg-purple-50 rounded-xl transition-all duration-300 disabled:opacity-50 icon-animate"
             title="Use current location"
           >
-            <Navigation className={`w-4 h-4 ${isDetectingLocation ? 'animate-pulse' : ''}`} />
+            <Navigation className={`w-5 h-5 ${isDetectingLocation ? 'animate-pulse' : ''}`} />
           </button>
         )}
       </div>
 
       {showSuggestions && (suggestions.length > 0 || contextualSuggestions.length > 0) && (
-        <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-20 mt-1 max-h-64 overflow-y-auto">
+        <div className="suggestions-dropdown absolute top-full left-0 right-0 z-20 mt-2 max-h-64 overflow-y-auto">
           {/* Smart suggestions */}
           {suggestions.map((suggestion, index) => (
             <button
               key={`smart-${index}`}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center justify-between group"
+              className="suggestion-item w-full text-left flex items-center justify-between group"
             >
-              <div className="flex items-center space-x-3">
-                {getSuggestionIcon(suggestion.type)}
+              <div className="flex items-center space-x-4">
+                <div className="p-2 bg-gray-50 rounded-lg group-hover:bg-purple-50 transition-colors">
+                  {getSuggestionIcon(suggestion.type)}
+                </div>
                 <div>
-                  <div className="text-gray-800">{suggestion.name}</div>
+                  <div className="font-medium text-gray-800 group-hover:text-purple-700">{suggestion.name}</div>
                   {suggestion.type !== 'popular' && (
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 font-medium">
                       {getSuggestionLabel(suggestion.type)}
                     </div>
                   )}
                 </div>
               </div>
               {suggestion.distance && (
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
                   {suggestion.distance.toFixed(1)}km
                 </span>
               )}
@@ -160,10 +164,12 @@ const SmartSearchInput: React.FC<SmartSearchInputProps> = ({
             <button
               key={`contextual-${index}`}
               onClick={() => handleSuggestionClick({ name: suggestion, type: 'history', confidence: 0.8 })}
-              className="w-full text-left px-3 py-2 hover:bg-gray-50 flex items-center space-x-3"
+              className="suggestion-item w-full text-left flex items-center space-x-4 group"
             >
-              <Clock className="w-4 h-4 text-gray-400" />
-              <span className="text-gray-700">{suggestion}</span>
+              <div className="p-2 bg-gray-50 rounded-lg group-hover:bg-blue-50 transition-colors">
+                <Clock className="w-4 h-4 text-gray-500 group-hover:text-blue-600" />
+              </div>
+              <span className="font-medium text-gray-700 group-hover:text-blue-700">{suggestion}</span>
             </button>
           ))}
         </div>
