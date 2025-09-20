@@ -1,0 +1,79 @@
+/* Profile component specific styles */
+.profile-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding-bottom: 6rem;
+}
+
+.profile-header {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 0 0 1.5rem 1.5rem;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.sos-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.sos-emergency {
+  width: 100%;
+  background-color: #dc2626;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+.sos-emergency:active {
+  background-color: #b91c1c;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 50;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 24rem;
+}
+
+@media (max-width: 640px) {
+  .profile-header {
+    padding: 1rem;
+  }
+  
+  .profile-card {
+    margin: 0 1rem 1rem 1rem;
+  }
+}

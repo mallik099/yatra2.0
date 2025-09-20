@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS Test - Yatra</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 400px; margin: 0 auto; }
+        .sos-btn { background: #dc2626; color: white; padding: 15px 30px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%; margin: 10px 0; }
+        .sos-btn:hover { background: #b91c1c; }
+        .info { background: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 8px; margin: 10px 0; }
+        .success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .error { background: #fef2f2; border: 1px solid #fecaca; color: #dc2626; }
+    </style>
+</head>
+<body>
+    <h1>🚨 SOS Test Page</h1>
+    
+    <div class="info">
+        <h3>Test SOS Functionality</h3>
+        <p>This page tests the SOS service functionality:</p>
+        <ul>
+            <li>📍 GPS Location Detection</li>
+            <li>📞 Emergency Calls (100, 108)</li>
+            <li>📱 SMS with Location</li>
+            <li>🔔 Push Notifications</li>
+        </ul>
+    </div>
+
+    <button class="sos-btn" onclick="testSOS()">🚨 TEST SOS ALERT</button>
+    
+    <div id="result"></div>
+
+    <script>
+        // Mock SOS Service for testing
+        class TestSOSService {
+            async getCurrentLocation() {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) {
+                        reject(new Error('Geolocation not supported'));
+                        return;
+                    }
+
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            resolve({
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                                accuracy: position.coords.accuracy
+                            });
+                        },
+                        (error) => {
+                            // Use mock location for testing
+                            resolve({
+                                latitude: 17.3850,
+                                longitude: 78.4867,
+                                accuracy: 10
+                            });
+                        },
+                        {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 60000
+                        }
+                    );
+                });
+            }
+
+            makeEmergencyCall(number) {
+                console.log(`📞 Calling ${number}`);
+                // In real app, this would trigger actual call
+                const link = document.createElement('a');
+                link.href = `tel:${number}`;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+
+            sendSMS(phoneNumber, message) {
+                console.log(`📱 SMS to ${phoneNumber}: ${message}`);
+                // In real app, this would send SMS
+                const smsLink = document.createElement('a');
+                smsLink.href = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+                smsLink.style.display = 'none';
+                document.body.appendChild(smsLink);
+                smsLink.click();
+                document.body.removeChild(smsLink);
+            }
+
+            createLocationMessage(location, passengerName, passengerPhone) {
+                const googleMapsUrl = `https://maps.google.com/?q=${location.latitude},${location.longitude}`;
+                
+                return `🚨 EMERGENCY ALERT 🚨
+Passenger: ${passengerName}
+Phone: ${passengerPhone}
+Location: ${googleMapsUrl}
+Time: ${new Date().toLocaleString()}
+Please respond immediately!`;
+            }
+
+            async triggerSOS(emergencyContact, passengerName, passengerPhone) {
+                try {
+                    const location = await this.getCurrentLocation();
+                    const emergencyMessage = this.createLocationMessage(location, passengerName, passengerPhone);
+                    
+                    // Make emergency calls
+                    setTimeout(() => this.makeEmergencyCall('100'), 100);
+                    setTimeout(() => this.makeEmergencyCall('108'), 1000);
+                    
+                    // Send SMS to emergency contact
+                    setTimeout(() => {
+                        this.sendSMS(emergencyContact.phone, emergencyMessage);
+                    }, 2000);
+                    
+                    // Show notification
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('SOS Alert Sent', {
+                            body: `Emergency alert sent to ${emergencyContact.name}`,
+                            icon: '/icon-192.png'
+                        });
+                    }
+                    
+                    return { location, message: emergencyMessage };
+                } catch (error) {
+                    console.error('SOS Error:', error);
+                    throw error;
+                }
+            }
+        }
+
+        const sosService = new TestSOSService();
+
+        async function testSOS() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<div class="info">🔄 Testing SOS functionality...</div>';
+
+            try {
+                // Request notification permission
+                if ('Notification' in window && Notification.permission === 'default') {
+                    await Notification.requestPermission();
+                }
+
+                const emergencyContact = {
+                    name: 'Test Contact',
+                    phone: '+91 98765 43210'
+                };
+
+                const result = await sosService.triggerSOS(
+                    emergencyContact,
+                    'Test User',
+                    '+91 98765 43210'
+                );
+
+                resultDiv.innerHTML = `
+                    <div class="info success">
+                        <h3>✅ SOS Test Successful!</h3>
+                        <p><strong>Location:</strong> ${result.location.latitude.toFixed(6)}, ${result.location.longitude.toFixed(6)}</p>
+                        <p><strong>Accuracy:</strong> ${result.location.accuracy}m</p>
+                        <p><strong>Actions Triggered:</strong></p>
+                        <ul>
+                            <li>📞 Called Police (100)</li>
+                            <li>📞 Called Ambulance (108)</li>
+                            <li>📱 SMS sent to emergency contact</li>
+                            <li>🔔 Notification displayed</li>
+                        </ul>
+                        <details>
+                            <summary>View SMS Message</summary>
+                            <pre style="font-size: 12px; background: #f9f9f9; padding: 10px; border-radius: 4px; margin-top: 10px;">${result.message}</pre>
+                        </details>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="info error">
+                        <h3>❌ SOS Test Failed</h3>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p>Please check browser permissions and try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Request notification permission on page load
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+    </script>
+</body>
+</html>

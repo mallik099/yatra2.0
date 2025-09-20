@@ -1,180 +1,177 @@
-import Hero from "@/components/Hero";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { 
-  Smartphone, 
-  Clock, 
-  Bell, 
-  Users, 
-  ArrowRight,
-  CheckCircle
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { MapPin, Search, Clock, Navigation, Moon, Sun } from 'lucide-react';
 
-const Home = () => {
-  const navigate = useNavigate();
-  
-  const features = [
-    {
-      icon: Smartphone,
-      title: "Real-time Bus Tracking",
-      description: "See exactly where your bus is on an interactive map with live GPS updates."
-    },
-    {
-      icon: Clock,
-      title: "Accurate Arrival Times",
-      description: "Get precise ETAs based on real traffic conditions and bus locations."
-    },
-    {
-      icon: Bell,
-      title: "Smart Notifications",
-      description: "Receive alerts for delays, route changes, and when to leave for your stop."
-    },
-    {
-      icon: Users,
-      title: "Eco-Smart Commuting",
-      description: "Choose greener transport options and reduce your carbon footprint with every ride."
-    }
-  ];
-
-  const benefits = [
-    "Save 30+ minutes daily on average",
-    "Never miss your bus again",
-    "Reduce waiting time at stops",
-    "Plan your commute with confidence"
-  ];
+const Home: React.FC = () => {
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-orange-50 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-orange-400/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-orange-400/10 to-slate-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-slate-400/5 to-blue-400/5 rounded-full blur-3xl animate-spin-slow"></div>
-      <Hero />
-      
-      {/* Features Section */}
-      <section className="py-24 bg-white/80 backdrop-blur-sm relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-50/30 to-transparent"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-800 mb-4">
-              Why Choose Yatra?
-            </h2>
-            <p className="text-slate-600 max-w-2xl mx-auto text-lg font-medium">
-              Professional bus tracking technology designed for reliable, eco-friendly commuting
-            </p>
+    <div className={darkMode 
+        ? 'min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900' 
+        : 'min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50'
+    }>
+      {/* Dark Mode Toggle */}
+      <div className="fixed top-6 right-6 z-50">
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className={darkMode 
+              ? 'p-3 rounded-full backdrop-blur-md border bg-white/10 border-white/20 text-white hover:bg-white/20' 
+              : 'p-3 rounded-full backdrop-blur-md border bg-white/80 border-white/40 text-gray-700 hover:bg-white/90'
+          }
+        >
+          {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </button>
+      </div>
+
+      <div className="container mx-auto px-6 py-12">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-6">
+            <div className="text-6xl mr-4">🚍</div>
+            <h1 className={`text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent`}>
+              Yatra
+            </h1>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const colors = ['bg-slate-800', 'bg-orange-600', 'bg-slate-700', 'bg-orange-500'];
-              return (
-                <Card key={index} className="p-8 text-center bg-white/90 backdrop-blur-sm border-slate-200 hover:shadow-2xl hover:border-orange-200 hover:bg-white transition-all duration-500 group hover:-translate-y-2">
-                  <div className={`w-14 h-14 ${colors[index]} rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                    <feature.icon className="h-7 w-7 text-white" />
-                  </div>
-                  <h3 className="font-bold text-xl mb-4 text-slate-800">{feature.title}</h3>
-                  <p className="text-slate-600 leading-relaxed font-medium">{feature.description}</p>
-                </Card>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 via-slate-50 to-blue-50 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-50/20 via-transparent to-slate-50/20"></div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-slate-800 mb-12">
-              Transform Your Daily Commute
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-6 mb-12">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center p-6 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-xl hover:shadow-xl hover:border-orange-300 hover:bg-white transition-all duration-500 hover:-translate-y-1 group">
-                  <div className="p-2 rounded-full bg-gradient-to-r from-orange-600 to-orange-500 mr-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <CheckCircle className="h-5 w-5 text-white" />
-                  </div>
-                  <span className="text-slate-800 font-semibold">{benefit}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 px-10 py-4 text-lg font-semibold transition-all duration-500 rounded-full shadow-xl hover:shadow-2xl hover:scale-105"
-                onClick={() => navigate('/app')}
-              >
-                🚌 Passenger App
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 px-10 py-4 text-lg font-semibold transition-all duration-500 rounded-full shadow-xl hover:shadow-2xl hover:scale-105"
-                onClick={() => navigate('/driver')}
-              >
-                🚗 Driver Dashboard
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-2 border-slate-300 hover:border-slate-400 px-10 py-4 text-lg font-semibold transition-all duration-500 rounded-full shadow-lg hover:shadow-xl hover:scale-105"
-                onClick={() => navigate('/admin')}
-              >
-                ⚙️ Admin Panel
-                <ArrowRight className="ml-3 h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-900/20 via-transparent to-blue-900/20"></div>
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-        </div>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Get Started?
-          </h2>
-          <p className="text-slate-300 mb-12 max-w-2xl mx-auto text-lg">
-            Join thousands of commuters using Yatra for smarter, greener, stress-free travel.
+          <p className={`text-xl mb-3 font-medium ${
+            darkMode ? 'text-blue-200' : 'text-blue-800'
+          }`}>
+            Telangana Public Transport Tracker
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-orange-600 to-orange-500 text-white hover:from-orange-700 hover:to-orange-600 px-10 py-4 text-lg font-semibold transition-all duration-500 rounded-full shadow-xl hover:shadow-2xl hover:scale-105"
-              onClick={() => navigate('/app')}
-            >
-              🚌 Track Buses Now
-              <ArrowRight className="ml-3 h-5 w-5" />
-            </Button>
-            <div className="flex items-center space-x-8 text-slate-400">
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
-                <span className="text-sm font-medium">10k+ Users</span>
+          <p className={`text-lg ${
+            darkMode ? 'text-purple-200' : 'text-purple-700'
+          }`}>
+            Real-time bus tracking for TSRTC services
+          </p>
+        </div>
+
+        {/* Main Features */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-20">
+          <Link 
+            to="/dashboard" 
+            className={`group relative overflow-hidden rounded-3xl p-8 backdrop-blur-md border ${
+              darkMode 
+                ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+                : 'bg-white/60 border-white/40 hover:bg-white/80 hover:border-white/60'
+            }`}>
+
+            <div className="relative flex items-center space-x-6">
+              <div className="bg-gradient-to-br from-teal-500 to-teal-600 p-4 rounded-2xl shadow-lg">
+                <Navigation className="w-8 h-8 text-white" />
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-orange-400 rounded-full mr-2"></div>
-                <span className="text-sm font-medium">99% Accuracy</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
-                <span className="text-sm font-medium">24/7 Support</span>
+              <div>
+                <h3 className={`text-2xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-800'
+                }`}>Passenger App</h3>
+                <p className={`text-lg ${
+                  darkMode ? 'text-teal-200' : 'text-teal-700'
+                }`}>Modern passenger experience</p>
               </div>
             </div>
+          </Link>
+
+          <Link 
+            to="/live" 
+            className={`group relative overflow-hidden rounded-3xl p-8 backdrop-blur-md border ${
+              darkMode 
+                ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+                : 'bg-white/60 border-white/40 hover:bg-white/80 hover:border-white/60'
+            }`}>
+
+            <div className="relative flex items-center space-x-6">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-600 p-4 rounded-2xl shadow-lg">
+                <MapPin className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className={`text-2xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-800'
+                }`}>Live Tracking</h3>
+                <p className={`text-lg ${
+                  darkMode ? 'text-blue-200' : 'text-blue-700'
+                }`}>Track buses in real-time</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link 
+            to="/search" 
+            className={`group relative overflow-hidden rounded-3xl p-8 backdrop-blur-md border ${
+              darkMode 
+                ? 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20' 
+                : 'bg-white/60 border-white/40 hover:bg-white/80 hover:border-white/60'
+            }`}>
+
+            <div className="relative flex items-center space-x-6">
+              <div className="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-2xl shadow-lg">
+                <Search className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className={`text-2xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-800'
+                }`}>Route Search</h3>
+                <p className={`text-lg ${
+                  darkMode ? 'text-purple-200' : 'text-purple-700'
+                }`}>Find buses between stops</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Features Section */}
+        <div className="mb-20">
+          <h2 className={`text-4xl font-bold text-center mb-12 ${
+            darkMode ? 'text-white' : 'text-gray-800'
+          }`}>Features</h2>
+          <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {[
+              { icon: Clock, title: 'Real-time ETAs', desc: 'Get accurate arrival times', color: 'from-blue-500 to-cyan-500' },
+              { icon: MapPin, title: 'Live Location', desc: 'See exact bus positions on the map', color: 'from-green-500 to-emerald-500' },
+              { icon: Navigation, title: 'Route Planning', desc: 'Find the best routes for your journey', color: 'from-purple-500 to-pink-500' },
+              { icon: Search, title: 'Smart Search', desc: 'Intelligent route suggestions', color: 'from-teal-500 to-blue-500' }
+            ].map((feature, index) => (
+              <div key={index} className={`group rounded-3xl p-8 backdrop-blur-md border ${
+                darkMode 
+                  ? 'bg-white/5 border-white/10 hover:bg-white/10' 
+                  : 'bg-white/60 border-white/40 hover:bg-white/80'
+              }`}>
+                <div className={`bg-gradient-to-br ${feature.color} p-4 rounded-2xl w-fit mx-auto mb-6 shadow-lg`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className={`text-xl font-bold mb-3 text-center ${
+                  darkMode ? 'text-white' : 'text-gray-800'
+                }`}>{feature.title}</h3>
+                <p className={`text-center ${
+                  darkMode ? 'text-blue-200' : 'text-blue-700'
+                }`}>{feature.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
+
+        {/* Stats Section */}
+        <div className={`rounded-3xl p-12 backdrop-blur-md border relative overflow-hidden ${
+          darkMode 
+            ? 'bg-white/5 border-white/10' 
+            : 'bg-white/60 border-white/40'
+        }`}>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10"></div>
+          <div className="relative grid md:grid-cols-3 gap-12 text-center">
+            {[
+              { number: '500+', label: 'Active Buses', color: 'from-blue-500 to-cyan-500' },
+              { number: '50+', label: 'Routes Covered', color: 'from-green-500 to-emerald-500' },
+              { number: '24/7', label: 'Live Tracking', color: 'from-purple-500 to-pink-500' }
+            ].map((stat, index) => (
+              <div key={index} className="group">
+                <div className={`text-5xl font-bold mb-4 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                  {stat.number}
+                </div>
+                <p className={`text-xl font-medium ${
+                  darkMode ? 'text-blue-200' : 'text-blue-800'
+                }`}>{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

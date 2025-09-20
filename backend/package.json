@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js",
+    "dev": "SET PORT=3001 && node --watch server.js",
     "local": "node local-setup.js",
-    "test-db": "node test-connection.js"
+    "test-db": "node test-connection.js",
+    "seed": "node seed-tsrtc.js"
   },
   "dependencies": {
     "express": "^4.18.2",

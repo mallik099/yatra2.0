@@ -1,0 +1,59 @@
+/* Enhanced visibility for bus stop markers */
+.bus-stop-marker {
+  z-index: 1000 !important;
+}
+
+.bus-stop-marker div {
+  transition: all 0.2s ease-in-out;
+}
+
+.bus-stop-marker:hover div {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
+
+/* Major bus stops with pulsing animation */
+.major-stop {
+  z-index: 1001 !important;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Regular bus stops */
+.regular-stop {
+  z-index: 1000 !important;
+}
+
+/* Ensure bus stops are always visible */
+.leaflet-marker-icon.bus-stop-marker {
+  z-index: 1000 !important;
+}
+
+/* Custom bus marker styles */
+.custom-bus-marker {
+  z-index: 999 !important;
+}
+
+.traffic-marker {
+  z-index: 998 !important;
+}
+
+/* Zoom-based visibility */
+@media (max-width: 768px) {
+  .bus-stop-marker {
+    transform: scale(1.2);
+  }
+}
